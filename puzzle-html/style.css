@@ -14,20 +14,20 @@ body {
     transform: translate(-50%, 50%);
     box-shadow: 0 1px 4px rgb(0, 0, 0, 0.5);
     padding: 15px;
-    background-color: #AA3939;
+    background-color: blueviolet;
     border-radius: 5px;
     font-size: 40px;
 }
 
 .grid {
     display: grid;
-    grid-template-row: 80px 80px 80px 80px;
-    grid-template-row: 80px 80px 80px 80px;
+    grid-template-columns: 80px 80px 80px 80px;
+    grid-template-rows: 80px 80px 80px 80px;
     border: 1px solid #550000;
 }
 
 .grid button {
-    background-color: white;
+    background-color: burlywood;
     color: #003333;
     font-size: 30px;
     font-weight: bold;
