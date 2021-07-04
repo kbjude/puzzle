@@ -26,7 +26,7 @@ class Box {
       return new Box(this.x - 1, this.y);
     }
   
-    getNextdoorBoxes() {
+    getNumber() {
       return [
         this.getTopBox(),
         this.getRightBox(),
@@ -35,13 +35,13 @@ class Box {
       ].filter(box => box !== null);
     }
   
-    getRandomNextdoorBox() {
-      const nextdoorBoxes = this.getNextdoorBoxes();
+    getrandomNumber() {
+      const nextdoorBoxes = this.getNumber();
       return nextdoorBoxes[Math.floor(Math.random() * nextdoorBoxes.length)];
     }
   }
   
-  const swapBoxes = (grid, box1, box2) => {
+  const swapNumbers = (grid, box1, box2) => {
     const temp = grid[box1.y][box1.x];
     grid[box1.y][box1.x] = grid[box2.y][box2.x];
     grid[box2.y][box2.x] = temp;
@@ -74,9 +74,9 @@ class Box {
     // Shuffle
     let blankBox = new Box(3, 3);
     for (let i = 0; i < 1000; i++) {
-      const randomNextdoorBox = blankBox.getRandomNextdoorBox();
-      swapBoxes(grid, blankBox, randomNextdoorBox);
-      blankBox = randomNextdoorBox;
+      const randomNumber = blankBox.getrandomNumber();
+      swapNumbers(grid, blankBox, randomNumber);
+      blankBox = randomNumber;
     }
   
     if (isSolved(grid)) return getRandomGrid();
@@ -129,13 +129,13 @@ class Box {
   
     handleClickBox(box) {
       return function() {
-        const nextdoorBoxes = box.getNextdoorBoxes();
+        const nextdoorBoxes = box.getNumber();
         const blankBox = nextdoorBoxes.find(
           nextdoorBox => this.state.grid[nextdoorBox.y][nextdoorBox.x] === 0
         );
         if (blankBox) {
           const newGrid = [...this.state.grid];
-          swapBoxes(newGrid, box, blankBox);
+          swapNumbers(newGrid, box, blankBox);
           if (isSolved(newGrid)) {
             clearInterval(this.tickId);
             this.setState({
@@ -161,7 +161,7 @@ class Box {
                             console.log('boxX', boxX, 'box.x', box.x)
                             for(let i = boxX; i <= box.x - boxX; i++) {
                                 console.log('rightboxx', boxX)
-                                swapBoxes(this.state.grid,new Box(boxX, boxY), new Box(i, box.y));
+                                swapNumbers(this.state.grid,new Box(boxX, boxY), new Box(i, box.y));
                             }
                             if (isSolved(this.state.grid)) {
                                 clearInterval(this.tickId);
@@ -179,7 +179,7 @@ class Box {
                         } else if (boxX > box.x) {
                             for(let i = box.x; i <= boxX - box.x; i++) {
                                 console.log('leftboxx', boxX)
-                                swapBoxes(this.state.grid, new Box(boxX, boxY), new Box(i, box.y));
+                                swapNumbers(this.state.grid, new Box(boxX, boxY), new Box(i, box.y));
                             }
                             if (isSolved(this.state.grid)) {
                                 clearInterval(this.tickId);
