@@ -255,4 +255,4 @@ class Box {
     }
   }
   
-  const GAME = Game.ready();
+  const GAME = Game.ready(s);
