@@ -154,7 +154,7 @@ class Box {
                 if(row.includes(0)) {
                     const boxY = i
                     const boxX = row.indexOf(0)
-                    console.log('y', boxY, box.y, 'x', boxX, box.x)
+                    console.log('y', boxY, 'Our box.y', box.y, 'x', boxX, box.x)
                     if (boxY === box.y) {
                         console.log('same Y')
                         if(boxX < box.x) {
