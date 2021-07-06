@@ -155,14 +155,12 @@ class Box {
                     const boxY = i
                     const boxX = row.indexOf(0)
                     console.log('y', boxY, 'Our box.y', box.y, 'x', boxX, box.x)
-                    console.log('Working', box.x, i);
-                    console.log('Looking at i', i)
                     if (boxY === box.y) {
                         console.log('same Y')
                         if(boxX < box.x) {
-                            console.log('boxX', boxX, 'box.x', box.x)
-                            for(let i = box.x - boxX; i >= boxX; i--) {
-                                console.log('rightboxx', boxX)
+                          console.log('inside Right FOR: ', 'box.x:', box.x, 'boxX:', boxX);
+                            for(let i = box.x; i >= boxX; i--) {
+                                console.log('rightboxx', boxX, i, ` (${boxX},${boxY})-(${i},${box.y})`)
                                 swapNumbers(this.state.grid, new Box(boxX, boxY), new Box(i, box.y));
                             }
                             if (isSolved(this.state.grid)) {
@@ -179,8 +177,9 @@ class Box {
                                 });
                               }
                         } else if (boxX > box.x) {
+                            console.log('inside Left FOR-', 'boxX:', boxX, 'box.x:', box.x);
                             for(let i = box.x; i <= boxX - box.x; i++) {
-                                console.log('leftboxx', boxX)
+                                console.log('leftboxx', boxX, i, ` (${boxX},${boxY})-(${i},${box.y})`)
                                 swapNumbers(this.state.grid, new Box(boxX, boxY), new Box(i, box.y));
                             }
                             if (isSolved(this.state.grid)) {
@@ -198,9 +197,48 @@ class Box {
                               }
                         }
                     } else if (boxX === box.x) {
-                        box
+                        console.log('same X', 'boxY:', boxY, 'box.y:', box.y)
+                        if(boxY < box.y) {
+                          console.log('inside UP FOR: ', 'box.y:', box.y, 'boxY:', boxY);
+                            for(let i = box.y; i >= boxY; i--) {
+                                console.log('rightboxY', boxY, i, ` (${boxX},${boxY})-(${i},${box.x})`)
+                                swapNumbers(this.state.grid, new Box(boxX, boxY), new Box(box.x, i));
+                            }
+                            if (isSolved(this.state.grid)) {
+                                clearInterval(this.tickId);
+                                this.setState({
+                                  status: "won",
+                                  grid: this.state.grid,
+                                  move: this.state.move + 1
+                                });
+                              } else {
+                                this.setState({
+                                  grid: this.state.grid,
+                                  move: this.state.move + 1
+                                });
+                              }
+                        } else if (boxY > box.y) {
+                            console.log('inside Left FOR-', 'boxY:', boxY, 'box.y:', box.y);
+                            for(let i = box.y; i <= boxY - box.y; i++) {
+                                console.log('leftboxY', boxY, i, ` (${boxX},${boxY})-(${i},${box.x})`)
+                                swapNumbers(this.state.grid, new Box(boxX, boxY), new Box(box.x, i));
+                            }
+                            if (isSolved(this.state.grid)) {
+                                clearInterval(this.tickId);
+                                this.setState({
+                                  status: "won",
+                                  grid: this.state.grid,
+                                  move: this.state.move + 1
+                                });
+                              } else {
+                                this.setState({
+                                  grid: this.state.grid,
+                                  move: this.state.move + 1
+                                });
+                              }
+                            }
                     } else {
-                        console.log('exited')
+                        console.log('exited　','boxXY:', boxX, boxY, 'box.xy:', box.x, box.y)
                     }
                 }
             })
@@ -233,7 +271,7 @@ class Box {
   
 
       const newButton = document.createElement("button");
-      if (status === "ready") newButton.textContent = "Start Game";
+      if (status === "ready") newButton.textContent = "Start The Game";
       if (status === "playing") newButton.textContent = "Reset";
       if (status === "won") newButton.textContent = "Play";
       newButton.addEventListener("click", () => {
@@ -243,11 +281,11 @@ class Box {
       });
       document.querySelector(".footer button").replaceWith(newButton);
   
-      if (status === "won") {
-        document.querySelector(".message").textContent = "You win!";
-      } else {
-        document.querySelector(".message").textContent = "";
-      }
+
+      document.getElementById("move").textContent = `Move: ${move}`;
+  
+
+      document.getElementById("time").textContent = `Time: ${time}`;
     }
   }
   
