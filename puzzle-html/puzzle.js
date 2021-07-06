@@ -155,14 +155,15 @@ class Box {
                     const boxY = i
                     const boxX = row.indexOf(0)
                     console.log('y', boxY, 'Our box.y', box.y, 'x', boxX, box.x)
+                    console.log('Working', box.x, i);
                     console.log('Looking at i', i)
                     if (boxY === box.y) {
                         console.log('same Y')
                         if(boxX < box.x) {
                             console.log('boxX', boxX, 'box.x', box.x)
-                            for(let i = boxX; i <= box.x - boxX; i++) {
+                            for(let i = box.x - boxX; i >= boxX; i--) {
                                 console.log('rightboxx', boxX)
-                                swapNumbers(this.state.grid,new Box(boxX, boxY), new Box(i, box.y));
+                                swapNumbers(this.state.grid, new Box(boxX, boxY), new Box(i, box.y));
                             }
                             if (isSolved(this.state.grid)) {
                                 clearInterval(this.tickId);
